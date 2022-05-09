@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>全自动梦中跑步平台</title>
+  <script>
+    function upload () {
+      var name = document.getElementById('name').value, password = document.getElementById('password').value
+      if (name.length !== 12) return alert('学号格式错误!')
+      if (password.length < 2) return alert('密码格式错误!')
+      fetch('/upload', { body: JSON.stringify({ name, password }) })
+        .then(function (it) { return it.text() })
+        .catch(function (e) { e.message || ('' + e) })
+        .then(alert)
+    }
+  </script>
+</head>
+<body>
+  <label>学号: </label><input id="name">
+  <br>
+  <label>密码: </label><input id="password" type="password">
+  <br>
+  <button onclick="upload()">开始云跑步</button>
+  <br><br>
+  <img src="https://s1.ax1x.com/2022/05/09/OYPRHJ.jpg">
+</body>
+</html>
