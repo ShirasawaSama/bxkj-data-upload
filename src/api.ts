@@ -75,7 +75,9 @@ export const upload = async (userId: number, token: string, record: DumpedRecord
   const identify = (await post<{ identify: string }>('https://sxkd.boxkj.com/app/sportRecordSetting/getSetting', { runType: 2, uid: userId }, token)).data.identify
   const endTime = (await post<{ startTime: number }>('https://sxkd.boxkj.com/app/sportRecordSetting/getRunningStartTime', { identify }, token))
     .data.startTime + (Math.random() * 2000 | 0) + 8000
-  const arr = record.sportTime.split(':')
+  const sportTime = `00:${20 + Math.random() * 20 | 0}:${10 + Math.random() * 50 | 0}`
+  const arr = sportTime.split(':')
+  const sportRange = 4 + Math.random() * 2
   const { returnMsg } = await post('https://sxkd.boxkj.com/app/appSportRecord/appAddSportRecord', {
     userId,
     runType: 2,
@@ -83,8 +85,8 @@ export const upload = async (userId: number, token: string, record: DumpedRecord
     endTime,
     gitudeLatitude: JSON.stringify(record.gitudeLatitude),
     identify,
-    formatSportTime: record.sportTime,
-    formatSportRange: record.sportRange,
+    formatSportTime: sportTime,
+    formatSportRange: sportRange,
     avgspeed: record.avgspeed,
     speed: record.speed,
     okPointList: JSON.stringify(record.okPointList || []),
@@ -98,7 +100,7 @@ export const upload = async (userId: number, token: string, record: DumpedRecord
     uploadType: 0,
     points: '[]'
   }, token)
-  return `时间: ${record.sportTime}, 距离: ${record.sportRange}km, ${returnMsg}`
+  return `时间: ${sportTime}, 距离: ${sportRange}km, ${returnMsg}`
 }
 
 export const dumpAllData = async (userId: number, token: string) => {
