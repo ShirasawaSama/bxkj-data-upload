@@ -42,7 +42,12 @@ createServer((request, response) => {
         }
         log(ret.name, '尝试上传记录.')
         login(ret.name, ret.password)
-          .then(it => upload(it.id, it.token, dumpData[dumpData.length * Math.random() | 0]))
+          .then(it => {
+            const data = dumpData[dumpData.length * Math.random() | 0]
+            data.sportTime = `00:${20 + Math.random() * 20 | 0}:${10 + Math.random() * 50 | 0}`
+            data.sportRange = 4 + Math.random() * 2
+            return upload(it.id, it.token, data)
+          })
           .then(it => {
             response.end(it)
             log(ret.name, it)
