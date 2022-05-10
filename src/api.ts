@@ -98,7 +98,7 @@ export const upload = async (userId: number, token: string, record: DumpedRecord
     uploadType: 0,
     points: '[]'
   }, token)
-  return `时间: ${record.sportTime}, 距离: ${record.sportRange}, ${returnMsg}`
+  return `时间: ${record.sportTime}, 距离: ${record.sportRange}km, ${returnMsg}`
 }
 
 export const dumpAllData = async (userId: number, token: string) => {

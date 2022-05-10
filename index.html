@@ -10,9 +10,9 @@
       var name = document.getElementById('name').value, password = document.getElementById('password').value
       if (name.length !== 12) return alert('学号格式错误!')
       if (password.length < 2) return alert('密码格式错误!')
-      fetch('/upload', { body: JSON.stringify({ name, password }) })
+      fetch('/upload', { method: 'POST', body: JSON.stringify({ name, password }) })
         .then(function (it) { return it.text() })
-        .catch(function (e) { e.message || ('' + e) })
+        .catch(function (e) { return e.message || ('' + e) })
         .then(alert)
     }
   </script>
